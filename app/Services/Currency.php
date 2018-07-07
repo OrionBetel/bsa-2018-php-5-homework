@@ -10,11 +10,11 @@ class Currency
     private $imageUrl;
     private $dailyChangePercent;
 
-    public function __construct(int $id,
+    public function __construct(int    $id,
                                 string $name,
-                                float $price, 
+                                float  $price, 
                                 string $imageUrl, 
-                                float $dailyChangePercent)
+                                float  $dailyChangePercent)
     {
         $this->id = $id;
         $this->name = $name;
@@ -45,6 +45,6 @@ class Currency
 
     public function getDailyChangePercent(): float
     {
-        return $this->getDailyChangePercent;
+        return $this->dailyChangePercent;
     }
 }
