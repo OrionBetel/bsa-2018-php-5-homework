@@ -25,11 +25,12 @@ class CurrencyGenerator
 
         return $currencies;
     }
-
+    
+    // This function returns only 100 currencies. Ideally there must be all available currencies.
     private static function fetchCurrencies(): array
     {
-        $currencies = file_get_contents(static::CURRENCY_URL);
-        $currencies = json_decode($currencies);
+        $output = file_get_contents(static::CURRENCY_URL);
+        $currencies = json_decode($output);
         $currencies = $currencies->data;
 
         return $currencies;
