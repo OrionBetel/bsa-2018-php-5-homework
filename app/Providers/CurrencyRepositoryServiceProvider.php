@@ -25,7 +25,7 @@ class CurrencyRepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Services\CurrencyRepositoryInterface', function () {
+        $this->app->singleton('App\Services\CurrencyRepositoryInterface', function () {
             return new CurrencyRepository(CurrencyGenerator::generate());
         });
     }
