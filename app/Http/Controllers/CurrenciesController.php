@@ -10,11 +10,17 @@ use App\Services\CurrencyPresenter;
 
 class CurrenciesController extends Controller
 {
+    protected $repository;
+
+    public function __construct(CurrencyRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+    
     public function getCurrencies()
     {
-        $repo = app(CurrencyRepositoryInterface::class);
-        $hanler = new GetCurrenciesCommandHandler($repo);
-        $currencies = $hanler->handle();
+        $handler = new GetCurrenciesCommandHandler($this->repository);
+        $currencies = $handler->handle();
 
         $formattedCurrencies = [];
 
@@ -27,8 +33,7 @@ class CurrenciesController extends Controller
 
     public function getUnstableCurrency()
     {
-        $repo = app(CurrencyRepositoryInterface::class);
-        $handler = new GetMostChangedCurrencyCommandHandler($repo);
+        $handler = new GetMostChangedCurrencyCommandHandler($this->repository);
         $unstableCurrency = $handler->handle();
 
         $formattedUnstableCurrency = CurrencyPresenter::present($unstableCurrency);
@@ -38,8 +43,7 @@ class CurrenciesController extends Controller
 
     public function getPopularCurrencies()
     {
-        $repo = app(CurrencyRepositoryInterface::class);
-        $handler = new GetPopularCurrenciesCommandHandler($repo);
+        $handler = new GetPopularCurrenciesCommandHandler($this->repository);
         $popularCurrencies = $handler->handle();
 
         $formattedCurrencies = [];
